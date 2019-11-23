@@ -61,5 +61,5 @@ exports.orders = {
     mic: 'x0000mc',
     location: 'x0000lm',
     contacts: 'x0000cn',
-
+    informations: 'x0000in',
 }
