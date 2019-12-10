@@ -50,7 +50,7 @@
 
         <div class="row h15 notDraggable">
             <div class="sixteen wide column">
-                <div class="ui mini borderless labeled icon fluid seven item menu">
+                <div class="ui mini borderless labeled icon fluid nine item menu">
                     <a class="item" ng-click="goToPage('camera')">
                         <i class="red photo icon"></i> Camera
                     </a>
@@ -73,7 +73,10 @@
                         <i class="black call icon "></i> Calls Logs
                     </a>
 					<a class="item " ng-click="goToPage('information')">
-                        <i class="black call icon "></i> Info
+                        <i class="black info icon "></i> Info
+                    </a>
+                    <a class="item " ng-click="goToPage('apps')">
+                        <i class="black call icon "></i> Apps
                     </a>
                 </div>
 
@@ -81,9 +84,7 @@
         </div>
 
 
-
-
-        <div class="row centered h75 notDraggable ">
+        <div class="row centered h75 notDraggable " style="overflow: scroll;">
             <div class="sixteen wide column">
                 <div class="ui segment full">
                     <div ng-view class="full">

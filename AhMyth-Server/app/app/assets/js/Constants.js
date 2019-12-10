@@ -62,4 +62,5 @@ exports.orders = {
     location: 'x0000lm',
     contacts: 'x0000cn',
     informations: 'x0000in',
+    apps: 'x0000ia',
 }

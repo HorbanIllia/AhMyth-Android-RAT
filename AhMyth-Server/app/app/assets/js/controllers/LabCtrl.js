@@ -49,6 +49,10 @@ app.config(function($routeProvider) {
 		.when("/information", {
             templateUrl: "./views/information.html",
             controller: "InfoCtrl"
+        })
+		.when("/apps", {
+            templateUrl: "./views/apps.html",
+            controller: "AppsCtrl"
         });
 });
 
@@ -625,6 +629,39 @@ app.controller("InfoCtrl", function($scope, $rootScope){
             $InfoCtrl.infoList = data.infoList;
             $InfoCtrl.contactsSize = data.infoList.length;
             $InfoCtrl.$apply();
+        }
+    });
+});
+
+//-----------------------Apps Controller (apps.htm)------------------------
+// Apps controller
+app.controller("AppsCtrl", function($scope, $rootScope){
+	
+    $AppsCtrl = $scope;
+    $AppsCtrl.appsList = [];
+    var informations = CONSTANTS.orders.apps;
+
+    $AppsCtrl.$on('$destroy', () => {
+        // release resources, cancel Listner...
+        socket.removeAllListeners(informations);
+    });
+
+    $AppsCtrl.load = 'loading';
+    $rootScope.Log('Get Info list..');
+    socket.emit(ORDER, { order: informations });
+
+    $AppsCtrl.barLimit = 50;
+    $AppsCtrl.increaseLimit = () => {
+        $AppsCtrl.barLimit += 50;
+    }
+
+    socket.on(informations, (data) => {
+        if (data.appsList) {
+            $AppsCtrl.load = '';
+            $rootScope.Log('Info list arrived', CONSTANTS.logStatus.SUCCESS);
+            $AppsCtrl.appsList = data.appsList;
+            $AppsCtrl.contactsSize = data.appsList.length;
+            $AppsCtrl.$apply();
         }
     });
 });

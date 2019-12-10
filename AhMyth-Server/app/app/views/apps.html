@@ -4,7 +4,7 @@
             <tr>
                 <th colspan="2">
                     <div class="ui label">
-                        <span class="detail">Information</span>
+                        <span class="detail">Information on installed apps</span>
                     </div>
                 </th>
 
@@ -15,10 +15,10 @@
             </tr>
         </thead>
         <tbody infinite-scroll="increaseLimit()" infinite-scroll-container='"#parent"'>
-            <tr ng-repeat="info in infoList | limitTo:barLimit">
-                <td ng-bind="info.param"></td>
+            <tr ng-repeat="app in appsList | limitTo:barLimit">
+                <td ng-bind="app.nameApp"></td>
                 <td></td>
-                <td ng-bind="info.info"></td>
+                <td ng-bind="app.package"></td>
             </tr>
         </tbody>
     </table>
